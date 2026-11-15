@@ -1,0 +1,74 @@
+#Working with Line-Edits, or textboxes
+
+
+#Importing sys
+import sys
+#Importing some basic required widgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QLineEdit
+#Importing layout management functions
+from PyQt5.QtWidgets import QWidget, QGridLayout
+
+
+#Defining Main Window
+class MainWindow(QMainWindow):
+
+    #Initiating class
+    def __init__(self):
+        super().__init__()
+
+        
+        #Setting initial geometry/dimensions of the window (x-coordinate,y-coordinate,width,height)
+        self.setGeometry(0,0,600,600)
+        #Initiating User Interface
+        self.initUI()
+
+    #Submitting the textbox data
+    def submit(self):
+        text=self.textbox.text()
+        self.label.setText(text)
+
+    
+    #Setting up a layout manager
+    def initUI(self):
+        #Setting up a main layout manager, called a cntral widget
+        central_widget=QWidget()
+        self.setCentralWidget(central_widget)
+
+        #Creating a self.label to test function
+        self.label=QLabel("Hi",self)
+        self.label.setGeometry(200,0,200,200)
+        self.label.setStyleSheet('font-size:20px;')
+        
+        #Building a line-edit, but making it largely accessible with self function
+        self.textbox=QLineEdit(self)
+        self.textbox.setGeometry(0,0,200,200)
+        self.textbox.setStyleSheet('font-size:30px;')
+
+        #Building a self.button to do something with the text
+        self.button=QPushButton("Submit",self)
+        self.button.setGeometry(200,0,200,200)
+        self.button.setStyleSheet('font-size:30px;')
+        self.button.clicked.connect(self.submit)
+        #The above function will change the data in the label whenever the button is clicked
+
+        
+        #Initiating Layout Manager
+        grid=QGridLayout()
+        grid.addWidget(self.textbox,0,0)
+        grid.addWidget(self.button,0,1)
+        grid.addWidget(self.label,1,1)
+        #Set this layout to the central widget
+        central_widget.setLayout(grid)
+        
+#Staring the window
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    #Showing the window
+    window.show()
+    #Making sure it does not abruptly close
+    sys.exit(app.exec())
+
+#Running the program
+if __name__ == "__main__":
+    main()
