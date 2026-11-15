@@ -1,0 +1,83 @@
+#First window with PyQt5
+
+
+#Importing sys
+import sys
+#Importing some basic required widgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+#Importing some enhancement functions
+from PyQt5.QtGui import QIcon, QFont, QPixmap
+#Importing alignment
+from PyQt5.QtCore import Qt
+
+
+#Defining Main Window
+class MainWindow(QMainWindow):
+    
+    #Initiating class
+    def __init__(self):
+        super().__init__()
+
+        
+        #Setting window title
+        self.setWindowTitle("Sounak")
+        #Setting initial geometry/dimensions of the window (x-coordinate,y-coordinate,width,height)
+        self.setGeometry(0,0,600,600)
+        #Setting icon of the window
+        self.setWindowIcon(QIcon("hellolimited_logo.jpg"))
+        #Building a text label
+        label1=QLabel("Hello World!",self)
+        #Font of the label
+        label1.setFont(QFont("Times New Roman",40))
+        #Dimensions of the label
+        label1.setGeometry(0,0,400,150)
+        #Styles of the label - similar to CSS
+        label1.setStyleSheet("color: blue;"
+                             "background-color: #87ed80;"
+                             "font-weight: bold;"
+                            "font-style: italic;"
+                            "text-decoration: underline;")
+        #Allignment of the data inside the label ie. the text here
+        label1.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+
+        
+        #Building an image label, not to scale
+        label2=QLabel(self)
+        label2.setGeometry(0,200,100,150)
+        img1=QPixmap("hellolimited_logo.jpg")
+        label2.setPixmap(img1)
+        label3=QLabel(self)
+
+        
+        #Building an image label, scaled according to label size
+        label3.setGeometry(0,400,100,150)
+        img2=QPixmap("hellolimited_logo.jpg")
+        label3.setPixmap(img2)
+        label3.setScaledContents(True)
+
+        
+        #Building an image label initially placed at the top-right corner of the window
+        label4=QLabel(self)
+        #Logic - initial position are same as width & height of window, removing the extra width and height of the label
+        label4.setGeometry(self.width()-label4.width(),self.height()-self.height(),label4.width(),label4.height())
+        img3=QPixmap("Image_created_with_a_mobile_phone.png")
+        label4.setPixmap(img3)
+        label4.setScaledContents(True)
+        
+#Staring the window
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    #Showing the window
+    window.show()
+    #Making sure it does not abruptly close
+    sys.exit(app.exec())
+    
+#Running the program
+if __name__ == "__main__":
+    main()
+
+
+#The problem with this code is its layout management
+#If we do not provide enough distance between labels, they can overlap
+#Thus, we need to adjust layouts
