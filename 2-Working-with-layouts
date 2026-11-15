@@ -1,0 +1,74 @@
+#Working with Layouts
+
+
+#Importing sys
+import sys
+#Importing some basic required widgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+#Importing layout management functions
+#QH-Horizontal layout , QV-Vertical layout , QGrid - Grid Layout
+#There are no coordinate arguments for QH or QV
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGridLayout
+
+
+#Defining Main Window
+class MainWindow(QMainWindow):
+
+    #Initiating class
+    def __init__(self):
+        super().__init__()
+
+        
+        #Setting initial geometry/dimensions of the window (x-coordinate,y-coordinate,width,height)
+        self.setGeometry(0,0,600,600)
+        #Initiating User Interface
+        self.initUI()
+
+    
+    #Setting up a layout manager
+    def initUI(self):
+        #Setting up a main layout manager, called a central widget
+        central_widget=QWidget()
+        self.setCentralWidget(central_widget)
+
+        
+        #Building some labels
+        label1=QLabel("1",self)
+        label2=QLabel("2",self)
+        label3=QLabel("3",self)
+        label4=QLabel("4",self)
+        
+        label1.setStyleSheet("background-color: #ff1100;""font-size:40px;")
+        label2.setStyleSheet("background-color: #00d5ff;""font-size:40px;")
+        label3.setStyleSheet("background-color: #09ff00;""font-size:40px;")
+        label4.setStyleSheet("background-color: #f2ff00;""font-size:40px;")
+
+        
+        #Initiating Layout Manager
+
+        #In Grid Layout... 
+        # (00)(01)(02)(03)(04) and so on.
+        # (10)(11)(12)(13)(14) and so on.
+        # (20)(21)(22)(23)(24) and so on.
+        # (30)(31)(32)(33)(34) and so on.
+        grid=QGridLayout()
+        grid.addWidget(label1,0,0)
+        grid.addWidget(label2,1,1)
+        grid.addWidget(label3,0,1)
+        grid.addWidget(label4,1,0)
+
+        #Set this layout to the central widget
+        central_widget.setLayout(grid)
+        
+#Staring the window
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    #Showing the window
+    window.show()
+    #Making sure it does not abruptly close
+    sys.exit(app.exec())
+
+#Running the program
+if __name__ == "__main__":
+    main()
