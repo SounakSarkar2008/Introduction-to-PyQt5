@@ -1,0 +1,66 @@
+#Working with push-buttons
+
+
+#Importing sys
+import sys
+#Importing some basic required widgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+
+
+#Defining Main Window
+class MainWindow(QMainWindow):
+
+    #Initiating class
+    def __init__(self):
+        super().__init__()
+
+        self.setGeometry(0,0,400,400)
+        #Initiating User Interface
+        self.initUI()
+
+    #Define an action for the button (no arguments except self)
+    def clickme(self):
+        print("Hello World!")
+        #The above statement is printed on the output screen
+        #The next line helps us to change the text on the button
+        #This is only possible because we have used self.button to access it anywhere
+        self.button1.setText("Clicked!")
+
+        #Change the text on the label
+        #This is only possible because we have defined self.label to access it anywhere
+        self.label1.setText("This is changed")
+        
+        #Disable to button after clicking it
+        self.button1.setDisabled(True)
+        
+    #Setting up a UI
+    def initUI(self):
+        label1=QLabel("",self)
+        #Defining a push button
+        #We may need to modify the button features through other functions outside initUI()
+        #Hence, we must define the button with 'self.button'
+        self.button1=QPushButton("Click Me!",self)
+        self.button1.setGeometry(0,0,100,100)
+        self.button1.setStyleSheet("font-size:20px;")
+        #To make th button do something, we need 'signal.connect(slot)' method
+        #Signal is an action, slot is 'self.function'
+        self.button1.clicked.connect(self.clickme)
+
+        #Define a self.label to access the label anywhere
+        self.label1=QLabel("This is unchanged",self)
+        self.label1.setGeometry(100,100,300,100)
+        self.label1.setStyleSheet("font-size:30px;")
+    
+
+#Staring the window
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    #Showing the window
+    window.show()
+    #Making sure it does not abruptly close
+    sys.exit(app.exec())
+
+#Running the program
+if __name__ == "__main__":
+    main()
